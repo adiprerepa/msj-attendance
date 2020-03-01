@@ -2,7 +2,6 @@ package com.msj.attendance.database.attendance;
 
 import com.msj.attendance.database.BaseDatabase;
 import com.msj.attendance.database.reference.ReferenceDatabase;
-
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Instant;

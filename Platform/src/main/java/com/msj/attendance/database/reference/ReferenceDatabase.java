@@ -25,7 +25,7 @@ public class ReferenceDatabase extends BaseDatabase {
     }
 
     /**
-     *
+     * This function is called in enrollment time - when a new student is enrolled.
      * @param room room name
      * @param fingerId id given by fingerprint sensor
      * @param studentId school-given id

@@ -68,5 +68,4 @@ public class AttendanceDatabase extends BaseDatabase {
         }
         return periodRecords;
     }
-
 }

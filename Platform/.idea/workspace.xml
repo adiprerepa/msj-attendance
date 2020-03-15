@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="640a63c8-d449-4999-ac48-fe82511f3a56" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_pods/AttendancePodInteractor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/database/DatabaseCredentials.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/database_credentials.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/database/attendance/AttendanceDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/database/attendance/AttendanceDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/main/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +57,7 @@
       <updated>1583080088519</updated>
       <workItem from="1583080092793" duration="3857000" />
       <workItem from="1584154314812" duration="5052000" />
-      <workItem from="1584160601856" duration="3128000" />
+      <workItem from="1584160601856" duration="12272000" />
     </task>
     <servers />
   </component>

@@ -53,4 +53,26 @@ public class ReferenceDatabase extends BaseDatabase {
         ResultSet set = statement.executeQuery(execStatement);
         return set.getString("student_id");
     }
+
+    /**
+     * Lookup student's name from table of Ids.
+     * Note: This is located in a different table: "idMap".
+     * Schema can be found in {@see create_map.sql}
+     * todo check if name is null in calling function.
+     * @param studentId student's Id
+     * @return student name
+     */
+    public String lookupStudentName(String studentId) {
+        String mapTableName = "idMap";
+        try {
+            Statement statement = super.connection.createStatement();
+            String execStatement = String.format("select * from %s where `%s` = %s;", mapTableName, "studentId", studentId);
+            ResultSet set = statement.executeQuery(execStatement);
+            return set.getString("studentName");
+        } catch (SQLException e) {
+            System.out.println("Returning null in lookupStudentName()");
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

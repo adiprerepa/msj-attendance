@@ -1,4 +1,4 @@
-package com.msj.attendance.attendance_pods;
+package com.msj.attendance.attendance_producer;
 
 import com.google.protobuf.ByteString;
 import com.msj.attendance.database.attendance.AttendanceDatabase;
@@ -15,7 +15,10 @@ import java.sql.SQLException;
 import java.time.Instant;
 
 /**
- * Interact with Esp8266
+ * Interact with Attendance Pods.
+ * Operations:
+ *  - read received records
+ *  - write status to pod
  */
 public class AttendancePodInteractor extends Thread {
 
@@ -29,13 +32,14 @@ public class AttendancePodInteractor extends Thread {
     }
 
     /**
-     * Open to connection
+     * Open to connection.
+     * Shutdown hook closes server.
      * @param port open port
      */
     public void startServer(int port) throws IOException {
         serverSocket = ServerSocketChannel.open();
         serverSocket.socket().bind(new InetSocketAddress(port));
-        System.out.println("Listening for connections....");
+        System.out.printf("Producer Service started on port %d...\n", port);
     }
 
     /**
@@ -107,5 +111,13 @@ public class AttendancePodInteractor extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Shut down ServerSocket to avoid future {@link java.nio.channels.AlreadyBoundException}.
+     * @throws IOException unable to shut down
+     */
+    private void shutdownProducerServer() throws IOException {
+        serverSocket.close();
     }
 }

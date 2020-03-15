@@ -1,0 +1,1 @@
+create table idMap(studentId varchar(40), studentName varchar(200));

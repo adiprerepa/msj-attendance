@@ -4,6 +4,23 @@ option java_package = "com.msj.generated";
 option java_multiple_files = true;
 option java_outer_classname = "AttendancePods";
 
+service StudentRecordsService {
+    rpc getPeriodRecords(RecordsRequest) returns (RecordsResponse);
+}
+
+message RecordsRequest {
+    required string room = 1;
+}
+
+message RecordsResponse {
+    repeated Student students = 1;
+}
+
+message Student {
+    required string student_id = 1;
+    required string name = 2;
+}
+
 message AttendanceRecord {
     required string room = 1;
     required string finger_id = 2;

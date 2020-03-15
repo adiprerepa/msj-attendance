@@ -35,32 +35,4 @@ public class DatabaseCredentials {
     public void setDatabaseUsername(String databaseUsername) {
         this.databaseUsername = databaseUsername;
     }
-
-    public static class DatabaseCredentialsBuilder {
-
-        private String databaseUrl;
-        private String databaseUsername;
-        private String databasePassword;
-
-        public DatabaseCredentialsBuilder withDatabaseUrl(String databaseUrl) {
-            this.databaseUrl = databaseUrl;
-            return this;
-        }
-
-        public DatabaseCredentialsBuilder withDatabaseUsername(String databaseUsername) {
-            this.databaseUsername = databaseUsername;
-            return this;
-        }
-
-        public DatabaseCredentialsBuilder withDatabasePassword(String databasePassword) {
-            this.databasePassword = databasePassword;
-            return this;
-        }
-
-        public DatabaseCredentials build() {
-            return new DatabaseCredentials(
-                    databaseUrl, databaseUsername, databasePassword
-            );
-        }
-    }
 }

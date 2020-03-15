@@ -38,7 +38,7 @@ public class AttendanceDatabase extends BaseDatabase {
     public boolean insertAttendanceRecord(String fingerId, String roomId) throws SQLException {
         String studentId = referenceDatabase.lookupStudentId(roomId, fingerId);
         Statement statement = super.connection.createStatement();
-        String execStatement = String.format("insert into %s (student_id, time, period) values (%s, %s);", roomId, studentId, Instant.now().toString());
+        String execStatement = String.format("insert into %s (student_id, time) values (%s, %s);", roomId, studentId, Instant.now().toString());
         return statement.execute(execStatement);
     }
 

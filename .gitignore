@@ -1,3 +1,3 @@
 /Platform/target/*
 /Platform/.idea/*
-/Platform/src/main/resources/database_credentials.json
+/Platform/src/main/resources/*

@@ -19,6 +19,9 @@ import java.time.Instant;
  * Operations:
  *  - read received records
  *  - write status to pod
+ *  todo shutdown serversocket on JVM shutdown
+ *   add a shutdown hook
+ *   i.e. @see Runtime#getRuntime()#addShutdownHook
  */
 public class AttendancePodInteractor extends Thread {
 
@@ -43,7 +46,7 @@ public class AttendancePodInteractor extends Thread {
     }
 
     /**
-     * Thread. Process:
+     * Thread Process:
      *  - Accept Connection
      *  - Determine record type
      *  - Insert based on record type

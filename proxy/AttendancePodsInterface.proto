@@ -1,11 +1,17 @@
 syntax = "proto2";
+import "google/api/annotations.proto";
 
 option java_package = "com.msj.generated";
 option java_multiple_files = true;
 option java_outer_classname = "AttendancePods";
 
 service StudentRecordsService {
-    rpc getPeriodRecords(RecordsRequest) returns (RecordsResponse);
+    rpc getPeriodRecords(RecordsRequest) returns (RecordsResponse) {
+      option (google.api.http) = {
+        post: "/StudentRecordsService/getPeriodRecords"
+        body: "*"
+      };
+    }
     // todo 3/16 implement
     rpc registerRoom(RegisterRoomRequest) returns (RegisterRoomResponse);
 }

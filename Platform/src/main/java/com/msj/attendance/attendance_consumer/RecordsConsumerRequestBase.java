@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
 
+/**
+ * gRPC endpoint implementation.
+ */
 public class RecordsConsumerRequestBase extends StudentRecordsServiceGrpc.StudentRecordsServiceImplBase {
 
     private AttendanceDatabase attendanceDatabase;
@@ -22,10 +25,17 @@ public class RecordsConsumerRequestBase extends StudentRecordsServiceGrpc.Studen
         this.referenceDatabase = referenceDatabase;
     }
 
+    /**
+     * Get the records for a certain period of a classroom. gRPC implementation.
+     * If a room does not exist - set the response status to false.
+     * If the room does exist - set the response to true - records returned does not matter.
+     * @param request client request
+     * @param responseObserver responder observable
+     */
     @Override
     public void getPeriodRecords(RecordsRequest request, StreamObserver<RecordsResponse> responseObserver) {
-        String room = request.getRoom();
         try {
+            String room = request.getRoom();
             ArrayList<Student> recordedStudents = new ArrayList<>();
             ArrayList<String> studentIds = attendanceDatabase.getPeriodRecords(Instant.now(), room);
             studentIds.forEach(studentId ->
@@ -34,11 +44,11 @@ public class RecordsConsumerRequestBase extends StudentRecordsServiceGrpc.Studen
                         .setName(referenceDatabase.lookupStudentName(studentId))
                         .build())
             );
-            RecordsResponse recordsResponse = RecordsResponse.newBuilder().addAllStudents(recordedStudents).build();
+            RecordsResponse recordsResponse = RecordsResponse.newBuilder().setStatus(true).addAllStudents(recordedStudents).build();
             responseObserver.onNext(recordsResponse);
             responseObserver.onCompleted();
         } catch (SQLException e) {
-            RecordsResponse recordsResponse = RecordsResponse.newBuilder().addAllStudents(null).build();
+            RecordsResponse recordsResponse = RecordsResponse.newBuilder().setStatus(false).addAllStudents(new ArrayList<>()).build();
             responseObserver.onNext(recordsResponse);
             responseObserver.onCompleted();
             e.printStackTrace();

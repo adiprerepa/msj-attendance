@@ -2,13 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="640a63c8-d449-4999-ac48-fe82511f3a56" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/api/RecordsApi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_consumer/RecordsConsumerRequestBase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/sql/create_map.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/gen.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/public/logo192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/public/logo512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/AttendancePodsInterface.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/AttendancePodsInterface_grpc_web_pb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/AttendancePodsInterface_pb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/Home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/Login.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/Register.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/envoy.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/serviceWorker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/useGrpcHook.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_pods/AttendancePodInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_producer/AttendancePodInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/database/reference/ReferenceDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/database/reference/ReferenceDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/api/RecordsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/api/RecordsApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_consumer/RecordsConsumerRequestBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_consumer/RecordsConsumerRequestBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_producer/AttendancePodInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_producer/AttendancePodInteractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/proto/AttendancePodsInterface.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/AttendancePodsInterface.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +68,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="discord-application" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -84,7 +107,13 @@
       <updated>1583080088519</updated>
       <workItem from="1583080092793" duration="3857000" />
       <workItem from="1584154314812" duration="5052000" />
-      <workItem from="1584160601856" duration="20020000" />
+      <workItem from="1584160601856" duration="21732000" />
+      <workItem from="1584324433182" duration="615000" />
+      <workItem from="1584325208872" duration="300000" />
+      <workItem from="1584326594555" duration="5820000" />
+      <workItem from="1584506347792" duration="27000" />
+      <workItem from="1584587534570" duration="5075000" />
+      <workItem from="1584849425407" duration="2582000" />
     </task>
     <servers />
   </component>
@@ -92,6 +121,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="590" y="215" width="800" height="684" key="#Plugins" timestamp="1584325176716">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state x="590" y="215" width="800" height="684" key="#Plugins/70.27.1850.1053@70.27.1850.1053" timestamp="1584325176716" />
     <state x="590" y="215" width="800" height="684" key="#Project_Structure" timestamp="1583080355102">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
@@ -104,37 +137,42 @@
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state x="836" y="445" width="308" height="223" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/70.27.1850.1053@70.27.1850.1053" timestamp="1583084029246" />
-    <state width="1804" height="275" key="GridCell.Tab.0.bottom" timestamp="1584294469511">
-      <screen x="70" y="27" width="1850" height="1053" />
+    <state width="1874" height="275" key="GridCell.Tab.0.bottom" timestamp="1584853047447">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state width="1874" height="275" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1584853047447" />
     <state width="1804" height="275" key="GridCell.Tab.0.bottom/70.27.1850.1053@70.27.1850.1053" timestamp="1584294469511" />
-    <state width="1804" height="275" key="GridCell.Tab.0.center" timestamp="1584294469510">
-      <screen x="70" y="27" width="1850" height="1053" />
+    <state width="1874" height="275" key="GridCell.Tab.0.center" timestamp="1584853047446">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state width="1874" height="275" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1584853047446" />
     <state width="1804" height="275" key="GridCell.Tab.0.center/70.27.1850.1053@70.27.1850.1053" timestamp="1584294469510" />
-    <state width="1804" height="275" key="GridCell.Tab.0.left" timestamp="1584294469510">
-      <screen x="70" y="27" width="1850" height="1053" />
+    <state width="1874" height="275" key="GridCell.Tab.0.left" timestamp="1584853047445">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state width="1874" height="275" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1584853047445" />
     <state width="1804" height="275" key="GridCell.Tab.0.left/70.27.1850.1053@70.27.1850.1053" timestamp="1584294469510" />
-    <state width="1804" height="275" key="GridCell.Tab.0.right" timestamp="1584294469510">
-      <screen x="70" y="27" width="1850" height="1053" />
+    <state width="1874" height="275" key="GridCell.Tab.0.right" timestamp="1584853047446">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state width="1874" height="275" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1584853047446" />
     <state width="1804" height="275" key="GridCell.Tab.0.right/70.27.1850.1053@70.27.1850.1053" timestamp="1584294469510" />
-    <state x="478" y="131" width="1024" height="852" key="SettingsEditor" timestamp="1584301239269">
+    <state x="478" y="131" width="1388" height="852" key="SettingsEditor" timestamp="1584385377972">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state x="478" y="131" width="1024" height="852" key="SettingsEditor/70.27.1850.1053@70.27.1850.1053" timestamp="1584301239269" />
-    <state x="763" y="473" width="454" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584298048554">
-      <screen x="70" y="27" width="1850" height="1053" />
+    <state x="478" y="131" width="1388" height="852" key="SettingsEditor/70.27.1850.1053@70.27.1850.1053" timestamp="1584385377972" />
+    <state x="719" y="473" width="454" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584757887501">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="719" y="473" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1920.1053@0.27.1920.1053" timestamp="1584757887501" />
     <state x="763" y="473" width="454" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/70.27.1850.1053@70.27.1850.1053" timestamp="1584298048554" />
     <state x="659" y="252" width="672" height="677" key="run.anything.popup" timestamp="1584297674166">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state x="659" y="252" width="672" height="677" key="run.anything.popup/70.27.1850.1053@70.27.1850.1053" timestamp="1584297674166" />
-    <state x="658" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1584297485723">
+    <state x="658" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1584325162452">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state x="658" y="259" width="672" height="678" key="search.everywhere.popup/70.27.1850.1053@70.27.1850.1053" timestamp="1584297485723" />
+    <state x="658" y="259" width="672" height="678" key="search.everywhere.popup/70.27.1850.1053@70.27.1850.1053" timestamp="1584325162452" />
   </component>
 </project>

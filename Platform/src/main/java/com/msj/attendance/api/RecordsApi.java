@@ -21,6 +21,12 @@ public class RecordsApi {
 
     private Server server;
 
+    /**
+     * Start the client and pod endpoints.
+     * @param credentialsPath path to json database credentials
+     * @param podPort port pods will connect to.
+     * @param consumerPort port api consumers will connect to.
+     */
     public void start(Path credentialsPath, int podPort, int consumerPort) throws IOException {
         String jsonContent = null;
         try {

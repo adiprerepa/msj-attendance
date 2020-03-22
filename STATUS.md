@@ -9,4 +9,4 @@ Finished:
 Todo:
  - esp8266 -> server integration (yay hardware)
  - populate databases with test data
- - MOVE TO DOCKE
+ - MOVE TO DOCKER

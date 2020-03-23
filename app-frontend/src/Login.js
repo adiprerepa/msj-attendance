@@ -1,8 +1,4 @@
 import React, {useState, useContext} from "react";
-import {useGrpcRequest} from './useGrpcHook'
-
-const {RecordsRequest, RecordsResponse} = require('./AttendancePodsInterface_pb.js');
-const {StudentRecordsServiceClient} = require('./AttendancePodsInterface_grpc_web_pb.js');
 
 /**
  * Notes:
@@ -34,31 +30,23 @@ class Login extends React.Component {
   }
 
   handleLogin(event) {
-    var studentRecordsService = new StudentRecordsServiceClient('http://localhost:2005', null, null);
-    var request = new RecordsRequest();
-    request.setRoom(this.state.room);
-    studentRecordsService.getPeriodRecords(request, {}, function(err, response) {
+    fetch( "http://localhost:2005/StudentRecordsService/getPeriodRecords", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Request-Headers': '*n'
+      },
+      body: JSON.stringify({
+        room: this.state.room,
+      })
+    }).then(function(response) {
       console.log(response);
-      if (err) {
-        console.error(err)
-      }
-      if (response.getStatus()) {
-        this.setState({
-          isLoggedIn: true,
-          studentsList: response.getStudentsList()
-        });
-        console.log(true);
-        console.log(response.getStudentsList())
-        // authentication succeeded - lead to next page
-      } else {
-        this.setState({
-          isLoggedIn: false,
-        });
-        console.log("shit" + false)
-        // show "authentication failed"
-      }
+      return response.json();
+    }).then(function(data) {
+      console.log(data);
+      console.log(data.status)
     });
-    alert('lmao -> ' + this.state.room + " " + this.state.password);
     event.preventDefault();
   }
 

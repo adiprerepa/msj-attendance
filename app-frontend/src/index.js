@@ -3,17 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {StudentRecordsServicePromiseClient} from "./AttendancePodsInterface_grpc_web_pb"
 
-export const ClientContext = React.createContext();
 
-const client = new StudentRecordsServicePromiseClient('http://localhost:8080', null, null);
 
 
 ReactDOM.render(
-  <ClientContext.Provider value={client}>
-    <App />
-  </ClientContext.Provider>,
+    <App />,
   document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

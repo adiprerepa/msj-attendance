@@ -15,6 +15,7 @@ import java.util.ArrayList;
 /**
  * gRPC endpoint implementation.
  */
+
 public class RecordsConsumerRequestBase extends StudentRecordsServiceGrpc.StudentRecordsServiceImplBase {
 
     private AttendanceDatabase attendanceDatabase;
@@ -34,21 +35,35 @@ public class RecordsConsumerRequestBase extends StudentRecordsServiceGrpc.Studen
      */
     @Override
     public void getPeriodRecords(RecordsRequest request, StreamObserver<RecordsResponse> responseObserver) {
+        System.out.println("Got Request: " + request.toString());
         try {
+            // gather present students
             String room = request.getRoom();
-            ArrayList<Student> recordedStudents = new ArrayList<>();
-            ArrayList<String> studentIds = attendanceDatabase.getPeriodRecords(Instant.now(), room);
-            studentIds.forEach(studentId ->
-                recordedStudents.add(Student.newBuilder()
+            ArrayList<Student> presentStudents = new ArrayList<>();
+            ArrayList<String> presentStudentIds = attendanceDatabase.getPeriodRecords(Instant.now(), room);
+            presentStudentIds.forEach(studentId ->
+                presentStudents.add(Student.newBuilder()
                         .setStudentId(studentId)
                         .setName(referenceDatabase.lookupStudentName(studentId))
-                        .build())
-            );
-            RecordsResponse recordsResponse = RecordsResponse.newBuilder().setStatus(true).addAllStudents(recordedStudents).build();
+                        .build()));
+
+            // gather missing students
+            ArrayList<String> missingStudentIds = referenceDatabase.getMissingStudents(request.getRoom(), presentStudentIds);
+            ArrayList<Student> missingStudents = new ArrayList<>();
+            missingStudentIds.forEach(studentId ->
+                    missingStudents.add(Student.newBuilder()
+                            .setStudentId(studentId)
+                            .setName(referenceDatabase.lookupStudentName(studentId))
+                            .build()));
+            RecordsResponse recordsResponse = RecordsResponse.newBuilder()
+                    .setStatus(true)
+                    .addAllPresentStudents(presentStudents)
+                    .addAllAbsentStudents(missingStudents)
+                    .build();
             responseObserver.onNext(recordsResponse);
             responseObserver.onCompleted();
         } catch (SQLException e) {
-            RecordsResponse recordsResponse = RecordsResponse.newBuilder().setStatus(false).addAllStudents(new ArrayList<>()).build();
+            RecordsResponse recordsResponse = RecordsResponse.newBuilder().setStatus(false).addAllPresentStudents(new ArrayList<>()).addAllAbsentStudents(new ArrayList<>()).build();
             responseObserver.onNext(recordsResponse);
             responseObserver.onCompleted();
             e.printStackTrace();

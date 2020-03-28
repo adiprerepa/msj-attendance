@@ -15,6 +15,7 @@ class Login extends React.Component {
       password: '',
       isLoggedIn: false,
       studentsList: [],
+      attempts: 0,
     };
     this.handleRoomChange = this.handleRoomChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -30,42 +31,65 @@ class Login extends React.Component {
   }
 
   handleLogin(event) {
-    fetch( "http://localhost:2005/StudentRecordsService/getPeriodRecords", {
-      method: 'POST',
+    let curComponent = this;
+    fetch( "http://localhost:2007/attendance/getRecords/" + this.state.room, {
+      method: 'get',
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Request-Headers': '*n'
-      },
-      body: JSON.stringify({
-        room: this.state.room,
-      })
+      }
     }).then(function(response) {
-      console.log(response);
       return response.json();
     }).then(function(data) {
       console.log(data);
-      console.log(data.status)
+      if (data.status) {
+        curComponent.setState({
+          isLoggedIn : true,
+          studentsList: data.students
+          }
+        );
+      } else {
+        curComponent.setState({
+          attempts: 1
+        })
+      }
     });
+    // this.forceUpdate();
     event.preventDefault();
   }
 
   render() {
-    return (
-      <form onSubmit={this.handleLogin}>
-        <label>
-          Room:
-          <input type="text" value={this.state.room} onChange={this.handleRoomChange} />
-        </label>
+    console.log(this.state);
+    if (this.state.isLoggedIn) {
+      // get missing students from backend
+      return (
+        <div>
         <br/>
-        <label>
-          Password:
-          <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
-        </label>
-        <br/>
-        <input type="submit" value="Submit" />
-      </form>
-    )
+        <span>Logged in students:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span>    </span>
+          <table>
+
+          </table>
+          <span>Missing Students:</span>
+        </div>
+      );
+    } else {
+      return (
+        <form onSubmit={this.handleLogin}>
+          <label>
+            Room:
+            <input type="text" value={this.state.room} onChange={this.handleRoomChange} />
+          </label>
+          <br/>
+          <label>
+            Password:
+            <input type="text" value={this.state.password} onChange={this.handlePasswordChange} />
+          </label>
+          <br/>
+          <input type="submit" value="Submit" />
+        </form>
+      )
+    }
   }
 }
 

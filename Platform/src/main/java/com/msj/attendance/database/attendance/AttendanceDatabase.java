@@ -2,6 +2,8 @@ package com.msj.attendance.database.attendance;
 
 import com.msj.attendance.database.BaseDatabase;
 import com.msj.attendance.database.reference.ReferenceDatabase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,6 +52,7 @@ public class AttendanceDatabase extends BaseDatabase {
      * @return list of Student Ids
      */
     public ArrayList<String> getPeriodRecords(Instant reqTime, String roomId) throws SQLException {
+        System.out.println(String.format("Getting period records for room %s in a ten minute window.\n", roomId));
         ArrayList<String> periodRecords = new ArrayList<>();
         Date reqDate = Date.from(reqTime);
         // ms in 10 min
@@ -61,11 +64,14 @@ public class AttendanceDatabase extends BaseDatabase {
         ResultSet resultSet = statement.executeQuery(retrieveQuery);
         while (resultSet.next()) {
             long timeStamp = Date.from(Instant.parse(resultSet.getString("time"))).getTime();
+            periodRecords.add(resultSet.getString("student_id"));
+
             // in 10 minute window
-            if (timeStamp > windowLowerBound && timeStamp < windowHigherBound) {
-                periodRecords.add(resultSet.getString("student_id"));
-            }
+//            if (timeStamp > windowLowerBound && timeStamp < windowHigherBound) {
+//                periodRecords.add(resultSet.getString("student_id"));
+//            }
         }
+        System.out.println(String.format("Returning %s period records from getPeriodRecords()", periodRecords.size()));
         return periodRecords;
     }
 }

@@ -1,6 +1,7 @@
 package com.msj.attendance.main;
 
 import com.msj.attendance.api.RecordsApi;
+
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -10,8 +11,8 @@ public class Main {
         RecordsApi api = new RecordsApi();
         int consumerPort, producerPort;
         if (args.length != 2) {
-            consumerPort = 2000;
-            producerPort = 2001;
+            consumerPort = 2002;
+            producerPort = 2003;
         } else {
             consumerPort = Integer.parseInt(args[0]);
             producerPort = Integer.parseInt(args[1]);

@@ -1,28 +1,13 @@
 import React, {useState, useContext} from "react";
-import {useGrpcRequest} from "./useGrpcHook";
-import {ClientContext} from "./index";
-const {RecordsRequest, RecordsResponse} = require("./AttendancePodsInterface_pb");
-const {StudentRecordsServiceClient} = require("./AttendancePodsInterface_grpc_web_pb");
-
 
 /**
  * Notes:
  *  - Password as of right now has no value. Need to implement on server-side.
  *  - handleLogin() sets the state.
- *  const {EchoRequest, EchoResponse} = require('./echo_pb.js');
- const {EchoServiceClient} = require('./echo_grpc_web_pb.js');
-
- var echoService = new EchoServiceClient('http://localhost:8080');
-
- var request = new EchoRequest();
- request.setMessage('Hello World!');
-
- echoService.echo(request, {}, function(err, response) {
-  // ...
-});
  */
 
 class Login extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -30,6 +15,7 @@ class Login extends React.Component {
       password: '',
       isLoggedIn: false,
       studentsList: [],
+      attempts: 0,
     };
     this.handleRoomChange = this.handleRoomChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -45,38 +31,51 @@ class Login extends React.Component {
   }
 
   handleLogin(event) {
-
-
+    let curComponent = this;
+    fetch( "http://localhost:2007/attendance/getRecords/" + this.state.room, {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    }).then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      console.log(data);
+      if (data.status) {
+        curComponent.setState({
+          isLoggedIn : true,
+          studentsList: data.students
+          }
+        );
+      } else {
+        curComponent.setState({
+          attempts: 1
+        })
+      }
+    });
+    // this.forceUpdate();
     event.preventDefault();
   }
 
   render() {
-    const [input, setInput] = useState(this.state.room);
-    const client = useContext(ClientContext);
-
-    const newRecordsRequest = async ({room}) => {
-      const request = new RecordsRequest();
-      request.setRoom(room);
-      return await client.getPeriodRecords(request, {});
-    };
-
-    const [data, error, loading, refetch] = useGrpcRequest(newRecordsRequest, {room: this.state.room}, []);
-    const handleSubmit = () => refetch({room: this.state.room});
-    if (error) {
-      console.error(error);
+    console.log(this.state);
+    if (this.state.isLoggedIn) {
+      // get missing students from backend
       return (
         <div>
-          {loading ? <div> Retrying...</div> : <div>Error: {error.message} </div>}
+        <br/>
+        <span>Logged in students:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span>    </span>
+          <table>
+
+          </table>
+          <span>Missing Students:</span>
         </div>
       );
     } else {
-      console.log(data);
-    }
-
-    return (
-      <div>
-        <p> AYYYY YYFYFYFY</p>
-        <form onSubmit={handleSubmit}>
+      return (
+        <form onSubmit={this.handleLogin}>
           <label>
             Room:
             <input type="text" value={this.state.room} onChange={this.handleRoomChange} />
@@ -89,8 +88,8 @@ class Login extends React.Component {
           <br/>
           <input type="submit" value="Submit" />
         </form>
-      </div>
-    );
+      )
+    }
   }
 }
 

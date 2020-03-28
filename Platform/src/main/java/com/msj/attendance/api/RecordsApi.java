@@ -8,7 +8,6 @@ import com.msj.attendance.database.attendance.AttendanceDatabase;
 import com.msj.attendance.database.reference.ReferenceDatabase;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -17,9 +16,11 @@ import java.nio.file.Path;
 /**
  * Clients Pull records from records Api.
  */
+
 public class RecordsApi {
 
     private Server server;
+
 
     /**
      * Start the client and pod endpoints.

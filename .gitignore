@@ -1,3 +1,4 @@
 /Platform/target/*
 /Platform/.idea/*
 /Platform/src/main/resources/*
+/spring-proxy/target/*

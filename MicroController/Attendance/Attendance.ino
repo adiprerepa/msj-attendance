@@ -4,22 +4,22 @@
 // 2 -> IN
 // 3 -> OUT
 // weird thing: The fingerprint sensor
-// does not work unless it is placed on a surface.
+// does nrot work unless it is placed on a surface.
 SoftwareSerial mySerial(2, 3);
-
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
-
-void setup()  
-{
-  Serial.begin(9600);
-  while (!Serial);  // For Yun/Leo/Micro/Zero/...
-  delay(100);
-  Serial.println("\n\nAdafruit finger detect test");
   
-  // for sending and recieving from sensor
-  finger.begin(57600);
-  delay(5);
-  if (finger.verifyPassword()) {
+  Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
+  
+  void setup()  
+  {
+    Serial.begin(9600);
+    while (!Serial);  // For Yun/Leo/Micro/Zero/...
+    delay(100);
+    Serial.println("\n\nAdafruit finger detect test");
+    
+    // for sending and recieving from sensor
+    finger.begin(57600);
+    delay(5);
+    if (finger.verifyPassword()) {
     Serial.println("Found fingerprint sensor!");
   } else {
     // place on surface

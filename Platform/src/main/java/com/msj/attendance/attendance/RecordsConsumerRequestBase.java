@@ -1,11 +1,8 @@
-package com.msj.attendance.attendance_consumer;
+package com.msj.attendance.attendance;
 
 import com.msj.attendance.database.attendance.AttendanceDatabase;
 import com.msj.attendance.database.reference.ReferenceDatabase;
-import com.msj.generated.RecordsRequest;
-import com.msj.generated.RecordsResponse;
-import com.msj.generated.Student;
-import com.msj.generated.StudentRecordsServiceGrpc;
+import com.msj.generated.*;
 import io.grpc.stub.StreamObserver;
 
 import java.sql.SQLException;
@@ -67,6 +64,37 @@ public class RecordsConsumerRequestBase extends StudentRecordsServiceGrpc.Studen
             responseObserver.onNext(recordsResponse);
             responseObserver.onCompleted();
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void produceRecord(AttendanceRecord request, StreamObserver<AttendanceResponse> responseObserver) {
+        if (request.getStudentId() == null) {
+            // regular attendance insertion
+            System.out.printf("Inserting attendance record. Room: %s | FingerId: %s\n", request.getRoom(), request.getFingerId());
+            try {
+                attendanceDatabase.insertAttendanceRecord(request.getFingerId(), request.getRoom());
+                String studentId = referenceDatabase.lookupStudentId(request.getRoom(), request.getFingerId());
+                responseObserver.onNext(AttendanceResponse.newBuilder().setStatus(200).setStudentId(studentId).build());
+                responseObserver.onCompleted();
+                System.out.println("Sent status 200 OK.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                responseObserver.onNext(AttendanceResponse.newBuilder().setStatus(0).build());
+                responseObserver.onCompleted();
+                System.out.println("Sent status 0 ERR.");
+            }
+        } else {
+            System.out.printf("Inserting reference record. Room: %s | FingerId: %s | StudentId: %s\n", request.getRoom(), request.getFingerId(), request.getStudentId());
+            // reference insertion
+            try {
+                referenceDatabase.insertReference(request.getRoom(), request.getFingerId(), request.getStudentId());
+                responseObserver.onNext(AttendanceResponse.newBuilder().setStatus(200).build());
+                responseObserver.onCompleted();
+            } catch (SQLException e) {
+                responseObserver.onNext(AttendanceResponse.newBuilder().setStatus(0).build());
+                responseObserver.onCompleted();
+            }
         }
     }
 }

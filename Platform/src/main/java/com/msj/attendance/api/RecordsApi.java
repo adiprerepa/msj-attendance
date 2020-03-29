@@ -1,7 +1,7 @@
 package com.msj.attendance.api;
 
 import com.google.gson.Gson;
-import com.msj.attendance.attendance_consumer.RecordsConsumerRequestBase;
+import com.msj.attendance.attendance.RecordsConsumerRequestBase;
 import com.msj.attendance.attendance_producer.AttendancePodInteractor;
 import com.msj.attendance.database.DatabaseCredentials;
 import com.msj.attendance.database.attendance.AttendanceDatabase;

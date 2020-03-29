@@ -2,30 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="640a63c8-d449-4999-ac48-fe82511f3a56" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../spring-proxy/spring-proxy.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring-proxy/src/main/java/com/msj/proxy/AttendanceController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring-proxy/src/main/java/com/msj/proxy/AttendanceProxyApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring-proxy/src/main/java/com/msj/proxy/AttendanceResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring-proxy/src/main/proto/AttendancePodsInterface.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring-proxy/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app-frontend/src/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MicroController/Attendance/Attendance.ino" beforeDir="false" afterPath="$PROJECT_DIR$/../MicroController/Attendance/Attendance.ino" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/api/RecordsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/api/RecordsApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_consumer/RecordsConsumerRequestBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_consumer/RecordsConsumerRequestBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance_consumer/RecordsConsumerRequestBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/attendance/RecordsConsumerRequestBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/database/attendance/AttendanceDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/database/attendance/AttendanceDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/database/reference/ReferenceDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/database/reference/ReferenceDatabase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/msj/attendance/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/msj/attendance/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/proto/AttendancePodsInterface.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/AttendancePodsInterface.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/sql/create_ref.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/sql/create_ref.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../app-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../app-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/../app-frontend/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app-frontend/src/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app-frontend/src/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proxy/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proxy/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proxy/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proxy/.idea/proxy.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proxy/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proxy/AttendancePodsInterface.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proxy/gen_stubs.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proxy/main.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +107,9 @@
       <workItem from="1584849425407" duration="3049000" />
       <workItem from="1585343967261" duration="31000" />
       <workItem from="1585352208105" duration="2598000" />
-      <workItem from="1585374913523" duration="2527000" />
+      <workItem from="1585374913523" duration="3124000" />
+      <workItem from="1585442335370" duration="3350000" />
+      <workItem from="1585516765346" duration="714000" />
     </task>
     <servers />
   </component>
@@ -174,6 +165,10 @@
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state x="478" y="131" width="1388" height="852" key="SettingsEditor/70.27.1850.1053@70.27.1850.1053" timestamp="1584385377972" />
+    <state x="1104" y="236" width="662" height="642" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585452760888">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="1104" y="236" width="662" height="642" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.27.1920.1053@0.27.1920.1053" timestamp="1585452760888" />
     <state x="719" y="473" width="454" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584757887501">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>

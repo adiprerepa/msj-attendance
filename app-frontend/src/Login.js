@@ -14,7 +14,8 @@ class Login extends React.Component {
       room: '',
       password: '',
       isLoggedIn: false,
-      studentsList: [],
+      presentStudentsList: [],
+      absentStudentsList: [],
       attempts: 0,
     };
     this.handleRoomChange = this.handleRoomChange.bind(this);
@@ -45,7 +46,8 @@ class Login extends React.Component {
       if (data.status) {
         curComponent.setState({
           isLoggedIn : true,
-          studentsList: data.students
+          presentStudentsList: data.presentStudents,
+          absentStudentsList: data.missingStudents,
           }
         );
       } else {
@@ -58,19 +60,51 @@ class Login extends React.Component {
     event.preventDefault();
   }
 
+  renderPresentTableData() {
+    return this.state.presentStudentsList.map((student, index) => {
+      const { id, name } = student; //destructuring
+      return (
+        <tr key={id}>
+          <td>{id}</td>
+          <td>{name}</td>
+        </tr>
+      )
+    })
+  }
+
+  renderAbsentTableData() {
+    return this.state.absentStudentsList.map((student, index) => {
+      const { id, name} = student;
+      return (
+        <tr key={id}>
+          <td>{id}</td>
+          <td>{name}</td>
+        </tr>
+      )
+    })
+  }
+
   render() {
-    console.log(this.state);
     if (this.state.isLoggedIn) {
       // get missing students from backend
       return (
         <div>
-        <br/>
-        <span>Logged in students:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <span>    </span>
-          <table>
-
-          </table>
-          <span>Missing Students:</span>
+          <div>
+            <h1 id='title'>Present Students</h1>
+            <table id='students'>
+              <tbody>
+              {this.renderPresentTableData()}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h1 id ='title'>Absent Students</h1>
+            <table id='students'>
+              <tbody>
+              {this.renderAbsentTableData()}
+              </tbody>
+            </table>
+          </div>
         </div>
       );
     } else {

@@ -64,12 +64,13 @@ public class AttendanceDatabase extends BaseDatabase {
         ResultSet resultSet = statement.executeQuery(retrieveQuery);
         while (resultSet.next()) {
             long timeStamp = Date.from(Instant.parse(resultSet.getString("time"))).getTime();
-            periodRecords.add(resultSet.getString("student_id"));
+            System.out.println(Instant.parse(resultSet.getString("time")).toString());
+//            periodRecords.add(resultSet.getString("student_id"));
 
             // in 10 minute window
-//            if (timeStamp > windowLowerBound && timeStamp < windowHigherBound) {
-//                periodRecords.add(resultSet.getString("student_id"));
-//            }
+            if (timeStamp > windowLowerBound && timeStamp < windowHigherBound) {
+                periodRecords.add(resultSet.getString("student_id"));
+            }
         }
         System.out.println(String.format("Returning %s period records from getPeriodRecords()", periodRecords.size()));
         return periodRecords;

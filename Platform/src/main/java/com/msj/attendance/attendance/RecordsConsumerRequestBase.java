@@ -69,7 +69,7 @@ public class RecordsConsumerRequestBase extends StudentRecordsServiceGrpc.Studen
 
     @Override
     public void produceRecord(AttendanceRecord request, StreamObserver<AttendanceResponse> responseObserver) {
-        if (request.getStudentId() == null) {
+        if (request.getStudentId().equals("")) {
             // regular attendance insertion
             System.out.printf("Inserting attendance record. Room: %s | FingerId: %s\n", request.getRoom(), request.getFingerId());
             try {

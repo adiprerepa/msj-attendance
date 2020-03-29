@@ -8,6 +8,8 @@ service StudentRecordsService {
     rpc getPeriodRecords(RecordsRequest) returns (RecordsResponse);
     // todo 3/16 implement
     rpc registerRoom(RegisterRoomRequest) returns (RegisterRoomResponse);
+
+    rpc produceRecord(AttendanceRecord) returns (AttendanceResponse);
 }
 
 message RegisterRoomRequest {
@@ -43,4 +45,5 @@ message AttendanceRecord {
 message AttendanceResponse {
     // 200->OK
     required int32 status = 1;
+    optional string student_id = 2;
 }

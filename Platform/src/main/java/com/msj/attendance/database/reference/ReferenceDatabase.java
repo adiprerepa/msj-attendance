@@ -36,7 +36,7 @@ public class ReferenceDatabase extends BaseDatabase {
     public boolean insertReference(String room, String fingerId, String studentId) throws SQLException {
         System.out.println(String.format("Inserting reference: room %s fingerid %s studentid %s\n", room, fingerId, studentId));
         Statement statement = super.connection.createStatement();
-        String execStatement = String.format("insert into %s (room_id, finger_id, student_id) values (%s, %s, %s);", tableName,
+        String execStatement = String.format("insert into %s (room_id, finger_id, student_id) values ('%s', '%s', '%s');", tableName,
                 room, fingerId, studentId);
         return statement.execute(execStatement);
     }
@@ -51,9 +51,10 @@ public class ReferenceDatabase extends BaseDatabase {
     public String lookupStudentId(String room, String fingerId) throws SQLException {
         System.out.println(String.format("Looking up student Id with room %s and fingerid %s\n", room, fingerId));
         Statement statement = super.connection.createStatement();
-        String execStatement = String.format("select * from %s where `%s`=%s and `%s`=%s;", tableName, "room_id",
+        String execStatement = String.format("select * from %s where `%s`='%s' and `%s`='%s';", tableName, "room_id",
                 room, "finger_id", fingerId);
         ResultSet set = statement.executeQuery(execStatement);
+        set.next();
         return set.getString("student_id");
     }
 

@@ -11,6 +11,8 @@ import java.sql.Statement;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AttendanceDatabase extends BaseDatabase {
 
@@ -40,7 +42,7 @@ public class AttendanceDatabase extends BaseDatabase {
     public boolean insertAttendanceRecord(String fingerId, String roomId) throws SQLException {
         String studentId = referenceDatabase.lookupStudentId(roomId, fingerId);
         Statement statement = super.connection.createStatement();
-        String execStatement = String.format("insert into %s (student_id, time) values (%s, %s);", roomId, studentId, Instant.now().toString());
+        String execStatement = String.format("insert into %s (student_id, time) values ('%s', '%s');", roomId, studentId, Instant.now().toString());
         return statement.execute(execStatement);
     }
 
@@ -64,14 +66,17 @@ public class AttendanceDatabase extends BaseDatabase {
         ResultSet resultSet = statement.executeQuery(retrieveQuery);
         while (resultSet.next()) {
             long timeStamp = Date.from(Instant.parse(resultSet.getString("time"))).getTime();
-            periodRecords.add(resultSet.getString("student_id"));
+            System.out.println(Instant.parse(resultSet.getString("time")).toString());
+//            periodRecords.add(resultSet.getString("student_id"));
 
             // in 10 minute window
-//            if (timeStamp > windowLowerBound && timeStamp < windowHigherBound) {
-//                periodRecords.add(resultSet.getString("student_id"));
-//            }
+            if (timeStamp > windowLowerBound && timeStamp < windowHigherBound) {
+                periodRecords.add(resultSet.getString("student_id"));
+            }
         }
         System.out.println(String.format("Returning %s period records from getPeriodRecords()", periodRecords.size()));
-        return periodRecords;
+        return (ArrayList) periodRecords.stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

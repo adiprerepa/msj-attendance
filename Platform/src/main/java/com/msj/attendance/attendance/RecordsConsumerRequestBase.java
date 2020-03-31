@@ -97,4 +97,9 @@ public class RecordsConsumerRequestBase extends StudentRecordsServiceGrpc.Studen
             }
         }
     }
+
+    @Override
+    public void registerRoom(RegisterRoomRequest request, StreamObserver<RegisterRoomResponse> responseObserver) {
+
+    }
 }

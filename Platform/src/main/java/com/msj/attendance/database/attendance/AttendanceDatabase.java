@@ -14,6 +14,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 3 Operations: Create Room, Get Room records, Insert room record.
+ * @author aditya
+ */
 public class AttendanceDatabase extends BaseDatabase {
 
     private ReferenceDatabase referenceDatabase;
@@ -29,6 +33,17 @@ public class AttendanceDatabase extends BaseDatabase {
     public AttendanceDatabase(String databaseUrl, String databaseUsername, String databasePassword, ReferenceDatabase referenceDatabase) {
         super(databaseUrl, databaseUsername, databasePassword);
         this.referenceDatabase = referenceDatabase;
+    }
+
+    /**
+     * Creates a room attendance table. -> other registration things need to be done offhand.
+     * @param roomName desired room name
+     * @throws SQLException
+     */
+    public void createRoom(String roomName) throws SQLException {
+        Statement statement = super.connection.createStatement();
+        String createStatement = String.format("create table %s", roomName);
+        statement.execute(createStatement);
     }
 
     /**

@@ -33,7 +33,7 @@ class Login extends React.Component {
 
   handleLogin(event) {
     let curComponent = this;
-    fetch( "http://localhost:2007/attendance/getRecords/" + this.state.room, {
+    fetch( "http://192.168.88.178:2007/attendance/getRecords/" + this.state.room, {
       method: 'get',
       headers: {
         'Content-Type': 'application/json',

@@ -42,7 +42,7 @@ public class ReferenceDatabase extends BaseDatabase {
     }
 
     /**
-     *
+     * Look up a student Id given a finger id
      * @param room room name
      * @param fingerId id given by fingerprint sensor
      * @return student id
@@ -56,6 +56,23 @@ public class ReferenceDatabase extends BaseDatabase {
         ResultSet set = statement.executeQuery(execStatement);
         set.next();
         return set.getString("student_id");
+    }
+
+    /**
+     * Look up a finger Id given a student id
+     * @param room current room
+     * @param studentId id of student
+     * @return finger id
+     * @throws SQLException not found
+     */
+    public String lookupFingerId(String room, String studentId) throws SQLException {
+        System.out.println(String.format("Looking up finger id with room %s and student id %s\n", room, studentId));
+        Statement statement = super.connection.createStatement();
+        String execStatement = String.format("select * from %s where `%s`='%s' and `%s`='%s';", tableName, "room_id",
+                room, "student_id", studentId);
+        ResultSet set = statement.executeQuery(execStatement);
+        set.next();
+        return set.getString("finger_id");
     }
 
     /**

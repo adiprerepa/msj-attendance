@@ -9,6 +9,8 @@ service StudentRecordsService {
     // todo 3/16 implement
     rpc registerRoom(RegisterRoomRequest) returns (RegisterRoomResponse);
 
+    rpc lookupFingerId(FingerLookupRequest) returns (FingerLookupResponse);
+
     rpc produceRecord(AttendanceRecord) returns (AttendanceResponse);
 }
 
@@ -33,6 +35,16 @@ message RecordsResponse {
 message Student {
     required string student_id = 1;
     required string name = 2;
+}
+
+message FingerLookupRequest {
+    required string room = 1;
+    required string student_id = 2;
+}
+
+message FingerLookupResponse {
+    required int32 status = 1;
+    optional string finger_id = 2;
 }
 
 message AttendanceRecord {

@@ -68,6 +68,20 @@ public class RecordsConsumerRequestBase extends StudentRecordsServiceGrpc.Studen
     }
 
     @Override
+    public void lookupFingerId(FingerLookupRequest request, StreamObserver<FingerLookupResponse> responseObserver) {
+        FingerLookupResponse response;
+        try {
+            String fingerId = referenceDatabase.lookupFingerId(request.getRoom(), request.getStudentId());
+            response = FingerLookupResponse.newBuilder().setStatus(200).setFingerId(fingerId).build();
+        } catch (SQLException e) {
+            response = FingerLookupResponse.newBuilder().setStatus(0).build();
+            e.printStackTrace();
+        }
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+
+    @Override
     public void produceRecord(AttendanceRecord request, StreamObserver<AttendanceResponse> responseObserver) {
         if (request.getStudentId().equals("")) {
             // regular attendance insertion
@@ -97,6 +111,8 @@ public class RecordsConsumerRequestBase extends StudentRecordsServiceGrpc.Studen
             }
         }
     }
+
+
 
     @Override
     public void registerRoom(RegisterRoomRequest request, StreamObserver<RegisterRoomResponse> responseObserver) {

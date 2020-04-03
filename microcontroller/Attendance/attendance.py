@@ -6,6 +6,7 @@ from pyfingerprint.pyfingerprint import PyFingerprint
 import grpc
 import AttendancePodsInterface_pb2
 import AttendancePodsInterface_pb2_grpc
+import sys
 
 """
 Some things:
@@ -39,6 +40,11 @@ def ip_refresh(refresh_rate, lcd, run_event):
         lcd.lcd_display_string(ip_addr, 1)
         time.sleep(refresh_rate)
 
+""" Clear the bottom line of the lcd """
+def clr_b(lcd):
+    lcd.lcd_display_string(" "*16, 2)
+
+
 """ Receive and return status of attendance insertion """
 def receive_message(request):
     with grpc.insecure_channel(server_endpoint) as channel:
@@ -46,6 +52,11 @@ def receive_message(request):
         response = stub.produceRecord(request)
         print("Received: " + str(response.status) + " " + response.student_id)
         return response
+
+def receive_enroll_message(request):
+    with grpc.insecure_channel(server_endpoint) as channel:
+        stub = AttendancePodsInterface_pb2_grpc.StudentRecordsServiceStub(channel)
+
 
 """ Get the fingerprint Scanner object by accessing /dev/ttyUSB0. Return -1 if not available. """
 def get_scanner():
@@ -80,6 +91,36 @@ def get_finger_id(f):
         print('Accuracy ' + str(accuracy))
         return fingerId
 
+def register_finger(f, lcd):
+    while (f.readImage() == False):
+        pass
+    f.convertImage(0x01)
+    # check if it is already registered
+    result = f.searchTemplate()
+    position = result[0]
+    if (positionNumber >= 0):
+        print("Template already exists at pos " + str(position))
+        clr_b(lcd)
+        lcd.lcd_display_string("err: exists@" + str(position), 2)
+        return -1
+    lcd.lcd_display_string("Remove Finger", 2)
+    time.sleep(2)
+    clr_b(lcd)
+    lcd.lcd_display_string("Re-place finger", 2)
+    # Wait for finger
+    while(f.readImage() == False):
+        pass
+    f.convertImage(0x02)
+    if (f.compareCharacteristics() == 0):
+        clr_b(lcd)
+        lcd.lcd_display_string("no match", 2)
+        return -1
+    f.createTemplate()
+    position = f.storeTemplate()
+    clr_b(lcd)
+    lcd.lcd_display_string("enroll OK", 2)
+    return position;
+
 """
 Shutdown all of the operations - lcd operations and thread operations.
 We shutdown the thread by passing a runEvent to the thread and unset it 
@@ -102,7 +143,17 @@ def get_attendance_request(finger_id):
         request.finger_id = str(finger_id)
         return request
 
+def get_register_request(finger_id, student_id):
+    request = AttendancePodsInterface_pb2.AttendanceRecord()
+    request.room = "test"
+    request.finger_id = str(finger_id)
+    request.student_id=str(student_id)
+    return request
+
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Bad Usage. Usage: \npython attendance.py <arg1>\n<arg1> represents enrollment, deletion, or recognition mode. \nFor example, to enroll a new class, run:\npython attendance.py enroll\nOr to recognize fingerprints, run:\npython attendance.py recognize \nPlease try again...")
+        exit(1)
     run_event = threading.Event()
     run_event.set()
     lcd = I2C_LCD_driver.lcd()
@@ -115,22 +166,32 @@ if __name__ == "__main__":
         print("Couldnt find scanner :(")
         shutdown_all(run_event, lcd, ipThread)
     try:
-        while(True):
-            finger_id = get_finger_id(scanner)
-            lcd.lcd_display_string(" "*16, 2)
-            print(finger_id)
-            if (finger_id == -1):
-                lcd.lcd_display_string("Bad Finger", 2)
-                continue
-            request = get_attendance_request(finger_id)
-            response = receive_message(request)
-            if (response.status == 200):
-                time.sleep(2);
-                lcd.lcd_display_string("OK " + response.student_id, 2)
-            else:
-                lcd.lcd_display_string("ERR " + str(response.status), 2)
-            time.sleep(2)
-            lcd.lcd_display_string("Place Finger", 2)
+        if (sys.argv[1] == "recognize"):  
+            while(True):
+                finger_id = get_finger_id(scanner)
+                lcd.lcd_display_string(" "*16, 2)
+                print(finger_id)
+                if (finger_id == -1):
+                    lcd.lcd_display_string("Bad Finger", 2)
+                    continue
+                request = get_attendance_request(finger_id+1)
+                response = receive_message(request)
+                if (response.status == 200):
+                    time.sleep(2);
+                    lcd.lcd_display_string("OK " + response.student_id, 2)
+                else:
+                    lcd.lcd_display_string("ERR " + str(response.status), 2)
+                time.sleep(2)
+                lcd.lcd_display_string("Place Finger", 2)
+        else if (sys.argv[1] == "enroll"):
+            while(True):
+                lcd.lcd_display_string("Place Finger", 2)
+                position = register_finger(scanner, lcd)
+                if position >= 0:
+
+                    # send to server & recieve
+                else:
+                    print("There was an error, returned -1")
         while(True):
             time.sleep(.1)
     except KeyboardInterrupt:

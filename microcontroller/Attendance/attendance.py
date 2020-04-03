@@ -35,7 +35,7 @@ def get_ip():
 def ip_refresh(refresh_rate, lcd, run_event):
     while(run_event.is_set()):
         ip_addr = get_ip()
-        print(ip_addr)
+        #print(ip_addr)
         lcd.lcd_display_string(ip_addr, 1)
         time.sleep(refresh_rate)
 
@@ -110,25 +110,27 @@ if __name__ == "__main__":
     """ Current refresh rate of 10 seconds """
     ipThread = threading.Thread(target=ip_refresh, args=(10, lcd, run_event))
     ipThread.start()
-    b = True
+    scanner = get_scanner()
+    if (scanner == -1):
+        print("Couldnt find scanner :(")
+        shutdown_all(run_event, lcd, ipThread)
     try:
-        while(b):
-#            scanner = get_scanner()
-#            if (scanner == -1):
-                #Couldnt find scanner, shutdown
-#                shutdown_all(run_event, lcd, ipThread)
-#            finger_id = get_finger_id(scanner)
-            finger_id = 1;
+        while(True):
+            finger_id = get_finger_id(scanner)
+            lcd.lcd_display_string(" "*16, 2)
+            print(finger_id)
             if (finger_id == -1):
-                lcd.lcd_display_string("bad finger", 2)
+                lcd.lcd_display_string("Bad Finger", 2)
                 continue
             request = get_attendance_request(finger_id)
             response = receive_message(request)
             if (response.status == 200):
+                time.sleep(2);
                 lcd.lcd_display_string("OK " + response.student_id, 2)
             else:
-                lcd.lcd_display_string("ERR " + str(response.status), 2) 
-            b = False
+                lcd.lcd_display_string("ERR " + str(response.status), 2)
+            time.sleep(2)
+            lcd.lcd_display_string("Place Finger", 2)
         while(True):
             time.sleep(.1)
     except KeyboardInterrupt:

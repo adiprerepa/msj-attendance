@@ -1,5 +1,6 @@
 import I2C_LCD_driver
 import socket
+import select
 import threading
 import time
 from pyfingerprint.pyfingerprint import PyFingerprint
@@ -53,10 +54,55 @@ def receive_message(request):
         print("Received: " + str(response.status) + " " + response.student_id)
         return response
 
-def receive_enroll_message(request):
-    with grpc.insecure_channel(server_endpoint) as channel:
-        stub = AttendancePodsInterface_pb2_grpc.StudentRecordsServiceStub(channel)
+def get_serv_sock(port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    sock.bind(('0.0.0.0', port))
+    return sock
 
+def nc_receive_id(port):
+   sock = get_serv_sock(port)
+    # Max queued connections 1
+   sock.listen(1)
+   client_sock, client_addr = sock.accept()
+   try:
+       ready_read, ready_write, err = select.select([client_sock,], [], [])
+   except select.error:
+       print('Select() failed on socket with {}'.format(client_addr))
+       return '-1'
+   if len(ready_read) > 0:
+       read_data = client_sock.recv(255)
+       if len(read_data) == 0:
+           print('{} closed the socket. '.format(client_addr))
+           return '-1'
+       else:
+           print('Received: {}'.format(read_data.rstrip()))
+           return read_data.rstrip()
+   else:
+        return '-1';
+   client_sock.close()
+   sock.close()
+
+def nc_receive_conf(port):
+    sock = get_serv_sock(port)
+    sock.listen(1)
+    client_sock, client_addr = sock.accept()
+    try:
+        ready_read, ready_write, err = select.select([client_sock,], [], [])
+    except select.error:
+        print('Select() Failed on conf with {}'.format(client_addr))
+        return False
+    if len(ready_read) > 0:
+        read_data = client_sock.recv(256)
+        if len(read_data) == 0:
+            print('{} closed sock in conf.'.format(client_addr))
+            return False
+        else:
+            print('Received conf: {}'.format(read_data.rstrip()))
+            if read_data.rstrip() == 'accept':
+                return True
+            else:
+                return False
 
 """ Get the fingerprint Scanner object by accessing /dev/ttyUSB0. Return -1 if not available. """
 def get_scanner():
@@ -91,14 +137,19 @@ def get_finger_id(f):
         print('Accuracy ' + str(accuracy))
         return fingerId
 
+""" 
+Register a finger to the scanner, to checking and save to lcd & finger db 
+Returns position of enrolled finger or -1
+"""
 def register_finger(f, lcd):
     while (f.readImage() == False):
         pass
     f.convertImage(0x01)
     # check if it is already registered
     result = f.searchTemplate()
+    # This SHOULD return -1 if a finger isn't already registered
     position = result[0]
-    if (positionNumber >= 0):
+    if (position >= 0):
         print("Template already exists at pos " + str(position))
         clr_b(lcd)
         lcd.lcd_display_string("err: exists@" + str(position), 2)
@@ -110,11 +161,14 @@ def register_finger(f, lcd):
     # Wait for finger
     while(f.readImage() == False):
         pass
+    # Store to charbuffer 2
     f.convertImage(0x02)
+    # Compares charbuffer 0x01 & 0x02
     if (f.compareCharacteristics() == 0):
         clr_b(lcd)
         lcd.lcd_display_string("no match", 2)
         return -1
+    # Create and store finger
     f.createTemplate()
     position = f.storeTemplate()
     clr_b(lcd)
@@ -159,7 +213,7 @@ if __name__ == "__main__":
     lcd = I2C_LCD_driver.lcd()
     lcd.lcd_clear()
     """ Current refresh rate of 10 seconds """
-    ipThread = threading.Thread(target=ip_refresh, args=(10, lcd, run_event))
+    ipThread = threading.Thread(target=ip_refresh, args=(5, lcd, run_event))
     ipThread.start()
     scanner = get_scanner()
     if (scanner == -1):
@@ -183,14 +237,43 @@ if __name__ == "__main__":
                     lcd.lcd_display_string("ERR " + str(response.status), 2)
                 time.sleep(2)
                 lcd.lcd_display_string("Place Finger", 2)
-        else if (sys.argv[1] == "enroll"):
+        elif (sys.argv[1] == "enroll"):
             while(True):
+                clr_b(lcd)
                 lcd.lcd_display_string("Place Finger", 2)
+                # Get the position of a newly registered finger
                 position = register_finger(scanner, lcd)
+                # Success
                 if position >= 0:
+                    clr_b(lcd)
+                    lcd.lcd_display_string("Waiting for ID", 2)
+                    # Recieve id from netcat
+                    data = nc_receive_id(2020)
+                    if data == '-1':
+                        clr_b(lcd)
+                        lcd.lcd_display_string('Err with nc', 2)
+                        continue
+                    clr_b(lcd)
+                    lcd.lcd_display_string(str(data) + ' OK?', 2)
+                    # Recieve confirmation for ID
+                    if nc_receive_conf(2020):
+                        request = get_register_request(position, data)
+                        # Register finger with server
+                        response = receive_message(request)
+                        if (response.status):
+                            clr_b(lcd)
+                            lcd.lcd_display_string('Enroll Success', 2)
+                        else:
+                            clr_b(lcd)
+                            lcd.lcd_display_string('Enroll Failed', 2)
+                    else:
+                        lcd.lcd_display_string('Conf Failed', 2)
+                        time.sleep(2)
+                        continue
 
                     # send to server & recieve
                 else:
+                    lcd.lcd_display_string('Registration Fail', 2)
                     print("There was an error, returned -1")
         while(True):
             time.sleep(.1)

@@ -2,6 +2,8 @@
 /Platform/.idea/*
 /Platform/src/main/resources/*
 /spring-proxy/target/*
-/microcontroller/Attendance/AttendancePodsInterface_*
-/microcontroller/Attendance/I2C_LCD_driver.pyc
-/microcontroller/Attendance/__pycache__/*
+/pi/AttendancePodsInterface_*
+/pi/I2C_LCD_driver.pyc
+/pi/__pycache__/*
+/pi/example_enroll.py
+/pi/example_delete.py

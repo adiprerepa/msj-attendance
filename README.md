@@ -57,3 +57,14 @@ The system used a confirmation system during enrollment to make sure the right I
  ```bash
  ./pi/scripts/run_pi_main.sh
  ```
+## Architecture
+This project has many components, all vital to it working. Here are the components:
+- Attendance Server (/api)
+- Spring Boot REST<->gRPC proxy (/spring-proxy)
+- React webapp (/web)
+- Raspberry pi application (/pi)
+
+Here is the Architecture:
+## What it should look like
+![full_apparatus](https://github.com/adiprerepa/msj-attendance/blob/master/docs/full_scanner_apparatus.jpg)
+![lcd_ip](https://github.com/adiprerepa/msj-attendance/blob/master/docs/lcd_interface.jpg)

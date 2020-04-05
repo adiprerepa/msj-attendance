@@ -7,3 +7,4 @@
 /pi/__pycache__/*
 /pi/example_enroll.py
 /pi/example_delete.py
+/web/node_modules/*

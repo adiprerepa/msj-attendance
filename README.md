@@ -65,6 +65,7 @@ This project has many components, all vital to it working. Here are the componen
 - Raspberry pi application (`/pi`)
 
 Here is the Architecture:
+![architecture](https://github.com/adiprerepa/msj-attendance/blob/master/docs/msj-attendance%20architecure.png)
 ## What it should look like
 ![full_apparatus](https://github.com/adiprerepa/msj-attendance/blob/master/docs/full_scanner_apparatus.jpg)
 ![lcd_ip](https://github.com/adiprerepa/msj-attendance/blob/master/docs/lcd_interface.jpg)

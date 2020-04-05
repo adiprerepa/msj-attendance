@@ -59,10 +59,10 @@ The system used a confirmation system during enrollment to make sure the right I
  ```
 ## Architecture
 This project has many components, all vital to it working. Here are the components:
-- Attendance Server (/api)
-- Spring Boot REST<->gRPC proxy (/spring-proxy)
-- React webapp (/web)
-- Raspberry pi application (/pi)
+- Attendance Server (`/api`)
+- Spring Boot REST<->gRPC proxy (`/spring-proxy`)
+- React webapp (`/web`)
+- Raspberry pi application (`/pi`)
 
 Here is the Architecture:
 ## What it should look like

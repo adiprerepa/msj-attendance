@@ -7,6 +7,9 @@ Teachers should not have to take attendance. This chore which could be replaced 
 ## How it works
 Each classroom will be equipped with a raspberry pi attached to an FPM10A fingerprint sensor and an LCM1602 display. On the first day of school, students enroll themselves onto the system with the teachers help. Then, whenever a student enters the classroom, it is recorded, stored, and sent to the teacher of that classroom at their request.
 
+## Author
+Aditya Prerepa (adiprerepa@gmail.com) 2020
+
 ## Dependencies
 Languages Required:
  - Java 11

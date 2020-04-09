@@ -17,7 +17,7 @@ public class Main {
             consumerPort = Integer.parseInt(args[0]);
             producerPort = Integer.parseInt(args[1]);
         }
-        api.start(Path.of(String.format("%s/database_credentials.json", System.getenv("ATT_HOME"))),
+        api.start(Path.of(String.format("%s/api/src/main/resources/database_credentials.json", System.getenv("ATT_HOME"))),
                 producerPort, consumerPort);
     }
 }

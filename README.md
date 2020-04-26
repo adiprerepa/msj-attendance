@@ -1,6 +1,9 @@
 # msj-attendance
 msj-attendance is an fingerprint-based, decentralized attendance system for Mission San Jose High. 
 
+## Copyright
+(C) Aditya Prerepa - All rights reserved.
+
 ## Motivation
 Teachers should not have to take attendance. This chore which could be replaced easily by something automated, takes up the time of tons of teachers, especially the ones who forget to take attendance. This product solves that problem.
 

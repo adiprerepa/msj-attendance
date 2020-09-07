@@ -4,6 +4,10 @@ msj-attendance is an fingerprint-based, decentralized attendance system for Miss
 ## Copyright
 (C) Aditya Prerepa - All rights reserved.
 
+## Demo
+
+Find the Demo here: https://www.youtube.com/watch?v=xvhgPIpIS_A
+
 ## Motivation
 Teachers should not have to take attendance. This chore which could be replaced easily by something automated, takes up the time of tons of teachers, especially the ones who forget to take attendance. This product solves that problem.
 
